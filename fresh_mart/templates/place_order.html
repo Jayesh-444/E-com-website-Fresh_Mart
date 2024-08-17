@@ -1,0 +1,72 @@
+{% extends 'main/master.html' %}
+{% block content %}
+{% load static%}
+{% load cart_tag %}
+
+<style>
+    @keyframes blink {
+        0% { opacity: -10; }
+        50% { opacity: 1; }
+        100% { opacity: -10; }
+    }
+</style>
+
+<h1 style="text-align: center; color: green; animation: blink 1s infinite;">Thank You for Your Order!</h1>
+
+
+<!-- Start Cart  -->
+<div class="cart-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+                    <table class="table">
+                        <thead style="background-color:white; color: black;">
+                            <tr>
+                                <th>Images</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key,value in request.session.cart.items %}
+                            <tr>
+                                <td class="thumbnail-img">
+                                    <a href="#">
+                                <img class="img-fluid" src="{{value.image}}" alt="" />
+                            </a>
+                                </td>
+                                <td class="name-pr">
+                                    <a href="#">
+                                        {{value.name}}
+                            </a>
+                                </td>
+                                <td class="price-pr">
+                                    <p> {{value.price}}</p>
+
+                                </td> 
+                                <td class="quantity-box"> 
+                                    <p>{{ value.quantity }}</p>
+                                    
+                                </td>
+
+                                <td class="total-pr">
+                                    <p> {{ value.price|multiply:value.quantity }}</p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+{% endblock %}
